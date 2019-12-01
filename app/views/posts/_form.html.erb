@@ -1,1 +1,22 @@
+<h1>Create New Post</h1>
 
+<div>
+    <h2>New Post</h2>
+    <%= form_for(@post) do |p| %>
+        <%= p.label :title %>
+        <%= p.text_field :title %><br><br>
+        <%= p.label :content %><br>
+        <%= p.text_area :content %><br><br>
+        <%= p.collection_check_boxes :category_ids, Category.all, :id, :name do |b|%>
+        <%= b.label(class:"label-checkbox") { b.check_box + b.text } %><br><br>
+            <% end %>
+    <h2>New Category</h2>   
+        <%= p.fields_for :categories, post.categories.build do |c| %>
+            <%= c.label "New Category" %>
+            <%= c.text_field :name %>     
+        <% end %>
+
+    <br><br>
+        <%= p.submit %>
+    <% end %>
+</div>
